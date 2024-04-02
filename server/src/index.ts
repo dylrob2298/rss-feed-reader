@@ -3,6 +3,7 @@ import express from 'express';
 import connectDB from './config/db';
 import feedRoutes from './routes/feedRoutes';
 import articleRoutes from './routes/articleRoutes';
+import cors from 'cors';
 import cron from 'node-cron'
 import { fetchAndUpdateArticles } from './services/feedService';
 import Feed from './models/Feed';
@@ -19,6 +20,7 @@ connectDB();
 //     });
 // });
 
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json()); // Middleware to parse JSON bodies
 
 app.get('/', (req, res) => {

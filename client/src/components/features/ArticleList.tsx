@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItemButton, ListItemText } from '@mui/material';
-import { getArticles } from '../../services/articleService';
+import { getArticles, getArticlesForFeed } from '../../services/articleService';
 
-const ArticleList = ({ feedId }: any) => {
+const ArticleList = ({ feedId, selectedArticle, setSelectedArticle }: any) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
         const fetchArticles = async () => {
-            const fetchedArticles = await getArticles(feedId);
+            const fetchedArticles = await getArticles();
             setArticles(fetchedArticles);
         };
-
-        if (feedId) {
-            fetchArticles();
+        const fetchArticlesForFeed = async (feedId: string) => {
+            const fetchedArticles = await getArticlesForFeed(feedId)
+            setArticles(fetchedArticles);
         }
+
+        if (feedId) fetchArticlesForFeed(feedId)
+        else fetchArticles();
     }, [feedId]);
+
+    
+    const handleListItemClick = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        article: any,
+    ) => {
+        setSelectedArticle(article);
+    }
 
     return (
         <List>
             {articles.map((article: any) => (
-                <ListItemButton key={article._id}>
+                <ListItemButton key={article._id}
+                selected={selectedArticle && selectedArticle._id === article._id}
+                onClick={(event) => handleListItemClick(event, article)}
+                >
                     <ListItemText primary={article.title} secondary={article.publishedDate} />
                 </ListItemButton>
             ))}
