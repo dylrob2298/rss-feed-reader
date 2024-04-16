@@ -8,10 +8,12 @@ const ArticleList = ({ feedId, selectedArticle, setSelectedArticle }: any) => {
     useEffect(() => {
         const fetchArticles = async () => {
             const fetchedArticles = await getArticles();
+            fetchedArticles.sort((a: any, b: any) => new Date(b.publishedDate).valueOf() - new Date(a.publishedDate).valueOf());
             setArticles(fetchedArticles);
         };
         const fetchArticlesForFeed = async (feedId: string) => {
             const fetchedArticles = await getArticlesForFeed(feedId)
+            fetchedArticles.sort((a: any, b: any) => new Date(b.publishedDate).valueOf() - new Date(a.publishedDate).valueOf());
             setArticles(fetchedArticles);
         }
 
@@ -28,7 +30,7 @@ const ArticleList = ({ feedId, selectedArticle, setSelectedArticle }: any) => {
     }
 
     return (
-        <List>
+        <List style={{ maxHeight: '1200px', overflowY: 'auto' }}>
             {articles.map((article: any) => (
                 <ListItemButton key={article._id}
                 selected={selectedArticle && selectedArticle._id === article._id}

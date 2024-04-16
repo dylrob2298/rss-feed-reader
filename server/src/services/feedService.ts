@@ -7,7 +7,7 @@ const parser = new Parser();
 const fetchAndUpdateArticles = async (feedUrl: string) => {
     try {
         const feed = await parser.parseURL(feedUrl);
-        const existingFeed = await Feed.findOne({ url: feedUrl });
+        const existingFeed = await Feed.findOneAndUpdate({ url: feedUrl }, { $set: { lastUpdated: new Date() } }, { new: true });
 
         if (!existingFeed) {
             console.error('Feed not found: ', feedUrl);
@@ -32,7 +32,7 @@ const fetchAndUpdateArticles = async (feedUrl: string) => {
 
         console.log(`Articles updated for feed: ${feedUrl}`);
     } catch (error: any) {
-        console.error('Error fetching/updating articles: ', error)
+        console.error(`Error fetching/updating articles: ${feedUrl}`, error)
     }
 };
 
