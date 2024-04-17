@@ -19,9 +19,9 @@ const FeedManager = () => {
   // };
 
   return (
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={4}>
+    <Container maxWidth={false}>
+      <Grid container spacing={5}>
+        <Grid item xs={2}>
           <AddFeed />
           <FeedList
             selectedFeed={selectedFeed}
@@ -30,14 +30,14 @@ const FeedManager = () => {
             setFeedId={setFeedId} 
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <ArticleList 
             feedId={feedId}
             selectedArticle={selectedArticle}
             setSelectedArticle={setSelectedArticle}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={7}>
           <ArticleDetails article={selectedArticle} />
         </Grid>
       </Grid>

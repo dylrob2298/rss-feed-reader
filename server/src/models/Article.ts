@@ -8,6 +8,7 @@ interface IArticle extends Document {
     isRead: boolean;
     isFavorite: boolean;
     publishedDate: Date;
+    summary?: string;
 }
 
 const ArticleSchema: Schema = new Schema({
@@ -18,6 +19,7 @@ const ArticleSchema: Schema = new Schema({
     isRead: { type: Boolean, default: false },
     isFavorite: { type: Boolean, default: false },
     publishedDate: { type: Date, required: true },
+    summary: { type: String },
 });
 
 const Article = mongoose.model<IArticle>('Article', ArticleSchema);

@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItemButton, ListItemText } from '@mui/material';
-import { getArticles, getArticlesForFeed } from '../../services/articleService';
+import { getArticles, getArticlesForFeed, getArticleSummary } from '../../services/articleService';
 
 const ArticleList = ({ feedId, selectedArticle, setSelectedArticle }: any) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        const fetchArticles = async () => {
-            const fetchedArticles = await getArticles();
-            fetchedArticles.sort((a: any, b: any) => new Date(b.publishedDate).valueOf() - new Date(a.publishedDate).valueOf());
-            setArticles(fetchedArticles);
-        };
         const fetchArticlesForFeed = async (feedId: string) => {
             const fetchedArticles = await getArticlesForFeed(feedId)
             fetchedArticles.sort((a: any, b: any) => new Date(b.publishedDate).valueOf() - new Date(a.publishedDate).valueOf());
@@ -18,7 +13,6 @@ const ArticleList = ({ feedId, selectedArticle, setSelectedArticle }: any) => {
         }
 
         if (feedId) fetchArticlesForFeed(feedId)
-        else fetchArticles();
     }, [feedId]);
 
     

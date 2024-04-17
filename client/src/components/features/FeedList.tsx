@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItemButton, ListItemText } from '@mui/material';
-import { getFeeds, updateAllFeeds, updateFeed } from '../../services/feedService';
+import { getFeeds, updateFeed } from '../../services/feedService';
 
 
 const FeedList = ({ selectedFeed, setSelectedFeed, feedId, setFeedId }: any) => {
